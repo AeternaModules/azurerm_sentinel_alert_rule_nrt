@@ -1,3 +1,7 @@
+output "sentinel_alert_rule_nrts_id" {
+  description = "Map of id values across all sentinel_alert_rule_nrts, keyed the same as var.sentinel_alert_rule_nrts"
+  value       = { for k, v in azurerm_sentinel_alert_rule_nrt.sentinel_alert_rule_nrts : k => v.id }
+}
 output "sentinel_alert_rule_nrts_alert_details_override" {
   description = "Map of alert_details_override values across all sentinel_alert_rule_nrts, keyed the same as var.sentinel_alert_rule_nrts"
   value       = { for k, v in azurerm_sentinel_alert_rule_nrt.sentinel_alert_rule_nrts : k => v.alert_details_override }
