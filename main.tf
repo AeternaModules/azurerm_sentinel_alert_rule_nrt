@@ -21,12 +21,12 @@ resource "azurerm_sentinel_alert_rule_nrt" "sentinel_alert_rule_nrts" {
   }
 
   dynamic "alert_details_override" {
-    for_each = each.value.alert_details_override != null ? [each.value.alert_details_override] : []
+    for_each = each.value.alert_details_override != null ? each.value.alert_details_override : []
     content {
       description_format  = alert_details_override.value.description_format
       display_name_format = alert_details_override.value.display_name_format
       dynamic "dynamic_property" {
-        for_each = alert_details_override.value.dynamic_property != null ? [alert_details_override.value.dynamic_property] : []
+        for_each = alert_details_override.value.dynamic_property != null ? alert_details_override.value.dynamic_property : []
         content {
           name  = dynamic_property.value.name
           value = dynamic_property.value.value
