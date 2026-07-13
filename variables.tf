@@ -56,9 +56,9 @@ EOT
     alert_rule_template_version = optional(string)
     custom_details              = optional(map(string))
     description                 = optional(string)
-    enabled                     = optional(bool)   # Default: true
-    suppression_duration        = optional(string) # Default: "PT5H"
-    suppression_enabled         = optional(bool)   # Default: false
+    enabled                     = optional(bool)
+    suppression_duration        = optional(string)
+    suppression_enabled         = optional(bool)
     tactics                     = optional(set(string))
     techniques                  = optional(set(string))
     event_grouping = object({
@@ -87,10 +87,10 @@ EOT
         by_alert_details        = optional(list(string))
         by_custom_details       = optional(list(string))
         by_entities             = optional(list(string))
-        enabled                 = optional(bool)   # Default: true
-        entity_matching_method  = optional(string) # Default: "AnyAlert"
-        lookback_duration       = optional(string) # Default: "PT5M"
-        reopen_closed_incidents = optional(bool)   # Default: false
+        enabled                 = optional(bool)
+        entity_matching_method  = optional(string)
+        lookback_duration       = optional(string)
+        reopen_closed_incidents = optional(bool)
       })
     }))
     sentinel_entity_mapping = optional(list(object({
@@ -108,10 +108,10 @@ EOT
   validation {
     condition = alltrue([
       for k, v in var.sentinel_alert_rule_nrts : (
-        v.entity_mapping == null || alltrue([for item in v.entity_mapping : (length(item.field_mapping) <= 3)])
+        v.entity_mapping == null || alltrue([for item in v.entity_mapping : (length(item.field_mapping) >= 1 && length(item.field_mapping) <= 3)])
       )
     ])
-    error_message = "Each field_mapping list must contain at most 3 items"
+    error_message = "Each field_mapping list must contain between 1 and 3 items"
   }
   validation {
     condition = alltrue([
