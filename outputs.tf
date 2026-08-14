@@ -36,11 +36,11 @@ output "sentinel_alert_rule_nrts_entity_mapping" {
 }
 output "sentinel_alert_rule_nrts_event_grouping" {
   description = "Map of event_grouping values across all sentinel_alert_rule_nrts, keyed the same as var.sentinel_alert_rule_nrts"
-  value       = { for k, v in azurerm_sentinel_alert_rule_nrt.sentinel_alert_rule_nrts : k => v.event_grouping if v.event_grouping != null && length(v.event_grouping) > 0 }
+  value       = { for k, v in azurerm_sentinel_alert_rule_nrt.sentinel_alert_rule_nrts : k => one(v.event_grouping) if v.event_grouping != null && length(v.event_grouping) > 0 }
 }
 output "sentinel_alert_rule_nrts_incident" {
   description = "Map of incident values across all sentinel_alert_rule_nrts, keyed the same as var.sentinel_alert_rule_nrts"
-  value       = { for k, v in azurerm_sentinel_alert_rule_nrt.sentinel_alert_rule_nrts : k => v.incident if v.incident != null && length(v.incident) > 0 }
+  value       = { for k, v in azurerm_sentinel_alert_rule_nrt.sentinel_alert_rule_nrts : k => one(v.incident) if v.incident != null && length(v.incident) > 0 }
 }
 output "sentinel_alert_rule_nrts_log_analytics_workspace_id" {
   description = "Map of log_analytics_workspace_id values across all sentinel_alert_rule_nrts, keyed the same as var.sentinel_alert_rule_nrts"
